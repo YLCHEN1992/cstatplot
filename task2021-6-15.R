@@ -25,7 +25,7 @@ setwd("./CDraft");ggsave(paste(gsub(":","_",Sys.time()),"cprp.png",sep="_"),p,wi
 cat("File had been saved sucessfully under ",paste(address,"/CDraft",sep=""),"\n")
 setwd(address);p}
 
-cbarp=cprp=function(x,labxt="Groups",labyt="Values",lname="Types"){
+cbarp=function(x,labxt="Groups",labyt="Values",lname="Types"){
 cann();address=getwd() 
 data=read.csv(deparse(substitute(x)))
 class=levels(factor(data$Group))
