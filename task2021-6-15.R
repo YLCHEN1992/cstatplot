@@ -1,9 +1,9 @@
 
 cann=function(){
-cat("Map R translation and annotation")
-cat("cprp: \nBs->germ types; Yv->Y values; Group->Treatment type\n")
-cat("cbarp: \nGroup->Treatment type; Yv->Y values\n")
-cat("Over 2021.6.15\n")}
+cat("Map R translation and annotation\n")
+cat("\ncprp: need 3 cols \n    Bs->germ types; \n    Yv->Y values;\n    Group->Treatment type\n")
+cat("cbarp: need 2 cols  \n    Group->Treatment type; \n    Yv->Y values\n")
+cat("\nOver 2021.6.15\n")}
 
 cprp=function(x,labxt="Groups",labyt="Proportion%",lname="Type of Germ"){
 cann();address=getwd() 
