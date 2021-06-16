@@ -38,7 +38,7 @@ if(hbar){pf=data$Yv;shf=c(); shf[pf>=0]="#ff4757"; shf[pf<=0]="#546de5"
 barp=ggplot(data,aes(x=Yv,y=reorder(Group,Yv)))+geom_bar(stat="identity",fill=shf)+
 theme(axis.title.x = element_text(size = 12,face="bold"),title=element_text(face="bold"),
 axis.title.y = element_text(size = 12,face="bold"))+labs(x=labxt,y=labyt)+
-theme(axis.text.x = element_text(size = 12,color="black"),
+theme(panel.background=element_blank(),axis.text.x = element_text(size = 12,color="black"),
 axis.text.y = element_text(size = 10,color="black",face="bold"))
 gsav(barp,"cbarp.png");return(barp)}
 class=levels(factor(data$Group));M=c();S=c()
