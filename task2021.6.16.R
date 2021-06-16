@@ -35,7 +35,7 @@ labs(x=labxt,y=labyt);gsav(prp,"cprp.png");prp}
 cbarp=function(x,labxt="Groups",labyt="Values",lname="Types",sp=T,hbar=F){
 cann(ncbarp);data=read.csv(deparse(substitute(x)))
 if(hbar){pf=data$Yv;shf=c(); shf[pf>=0]="#ff4757"; shf[pf<=0]="#546de5"
-barp=ggplot(data,aes(x=Yv,y=Group))+geom_bar(stat="identity",fill=shf)+
+barp=ggplot(data,aes(x=Yv,y=reorder(Group,Yv)))+geom_bar(stat="identity",fill=shf)+
 theme(axis.title.x = element_text(size = 12,face="bold"),title=element_text(face="bold"),
 axis.title.y = element_text(size = 12,face="bold"))+labs(x=labxt,y=labyt)+
 theme(axis.text.x = element_text(size = 12,color="black"),
