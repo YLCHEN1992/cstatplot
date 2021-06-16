@@ -32,8 +32,15 @@ theme(panel.background=element_blank(),legend.title=element_text(face ="bold"))+
 theme(axis.text.x=element_text(face ="bold"),axis.title=element_text(face ="bold"))+
 labs(x=labxt,y=labyt);gsav(prp,"cprp.png");prp}
 
-cbarp=function(x,labxt="Groups",labyt="Values",lname="Types",sp=T){
+cbarp=function(x,labxt="Groups",labyt="Values",lname="Types",sp=T,hbar=F){
 cann(ncbarp);data=read.csv(deparse(substitute(x)))
+if(hbar){pf=data$Yv;shf=c(); shf[pf>=0]="#ff4757"; shf[pf<=0]="#546de5"
+barp=ggplot(data,aes(x=Yv,y=Group))+geom_bar(stat="identity",fill=shf)+
+theme(axis.title.x = element_text(size = 12,face="bold"),title=element_text(face="bold"),
+axis.title.y = element_text(size = 12,face="bold"))+labs(x=labxt,y=labyt)+
+theme(axis.text.x = element_text(size = 12,color="black"),
+axis.text.y = element_text(size = 10,color="black",face="bold"))
+gsav(barp,"cbarp.png");return(barp)}
 class=levels(factor(data$Group));M=c();S=c()
 for (i in 1:length(class)){
 M=c(M,mean(data[which(data$Group==class[i]),]$Yv));S=c(S,sd(data[which(data$Group==class[i]),]$Yv))}
@@ -46,6 +53,7 @@ if(sp){sg=TukeyHSD(aov(Yv~Group,data))$Group; pd=as.numeric(sg[,4][1:length(clas
 shsg=c(); shsg[pd>0.05]="no"; shsg[pd<=0.05]="*"; shsg[pd<=0.01]="**"
 barp=barp+geom_text(aes(x=class,y=M+S, label =c("",shsg),vjust=0,hjust=0.5),
 color="blue4", size=8,show.legend = F,)};gsav(barp,"cbarp.png");barp}
+
 
 cvlo=function(x,tt=""){
 cann(ncvlo);x=read.csv(deparse(substitute(x)))
