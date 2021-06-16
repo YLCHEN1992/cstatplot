@@ -32,7 +32,7 @@ theme(panel.background=element_blank(),legend.title=element_text(face ="bold"))+
 theme(axis.text.x=element_text(face ="bold"),axis.title=element_text(face ="bold"))+
 labs(x=labxt,y=labyt);gsav(prp,"cprp.png");prp}
 
-cbarp=function(x,labxt="Groups",labyt="Values",lname="Types"){
+cbarp=function(x,labxt="Groups",labyt="Values",lname="Types",sp=T){
 cann(ncbarp);data=read.csv(deparse(substitute(x)))
 class=levels(factor(data$Group));M=c();S=c()
 for (i in 1:length(class)){
@@ -42,7 +42,10 @@ geom_errorbar(aes(x=class,ymin=M-S,ymax=M+S),width=0.4,colour="red",alpha=0.8,si
 labs(x=labxt,y=labyt)+theme(axis.text.x=element_text(face ="bold"),axis.title=element_text(face ="bold"))+
 geom_jitter(aes(x=data$Group,y=data$Yv),width=0.1,color="black",size=2)+scale_fill_discrete(name=lname)+
 theme(panel.background=element_blank(),legend.title=element_text(face ="bold"))
-gsav(barp,"cbarp.png");barp}
+if(sp){sg=TukeyHSD(aov(Yv~Group,data))$Group; pd=as.numeric(sg[,4][1:length(class)-1])
+shsg=c(); shsg[pd>0.05]="no"; shsg[pd<=0.05]="*"; shsg[pd<=0.01]="**"
+barp=barp+geom_text(aes(x=class,y=M+S, label =c("",shsg),vjust=0,hjust=0.5),
+color="blue4", size=8,show.legend = F,)};gsav(barp,"cbarp.png");barp}
 
 cvlo=function(x,tt=""){
 cann(ncvlo);x=read.csv(deparse(substitute(x)))
