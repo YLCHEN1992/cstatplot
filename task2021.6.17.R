@@ -24,6 +24,7 @@ cbi=function(){install.packages(c("BiocManager","PerformanceAnalytics","ggplot2"
 cbl=function(){library(ggplot2);library(pheatmap);library(VennDiagram);
 library(scatterplot3d);library(WGCNA);library(PerformanceAnalytics)}
 
+
 cpacks=c("BiocManager","stringr","reshape2","WGCNA","matrixStats", "Hmisc","foreach", 
 "doParallel", "fastcluster", "dynamicTreeCut", "survival","AnnotationDbi", 
 "impute","GO.db","preprocessCore","ggplot2", "pheatmap",
@@ -211,7 +212,8 @@ dev.off();gsav2down();setwd(address)
 moduleLabels=znet$colors; moduleColors=labels2colors(znet$colors)
 MEs0=moduleEigengenes(data, moduleColors)$eigengenes
 MEs=orderMEs(MEs0)
-y=read.csv(deparse(substitute(n)))
+if(as.character(substitute(n))==""){y=n}else{
+y=read.csv(deparse(substitute(n)))}
 if(class(y)== "data.frame"){
 ysortrn=match(rownames(data), y[,1])
 y=y[ysortrn,]; rownames(y)=y[,1];y=y[,-1]
