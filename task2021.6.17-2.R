@@ -267,6 +267,6 @@ gsav(dotplot(KEGG_gseresult,showCategory=sn),"cdotplot.png")
 for(i in 1:dim(KEGG_gseresult)[1]){
 gsea=gseaplot2(KEGG_gseresult,i,color="red",base_size = 14, pvalue_table = T)
 gsav(gsea,paste(KEGG_gseresult$Description[i],i,".png",sep="_"),height=6)}
-gsea=gseaplot2(KEGG_gseresult,1:dim(KEGG_gsresult)[1],color="red",base_size = 14, pvalue_table = T)
+gsea=gseaplot2(KEGG_gseresult,1:dim(KEGG_gseresult)[1],color="red",base_size = 14, pvalue_table = T)
 gsav(gsea,"All_GSEA,png",width=12,height=9)}
 
