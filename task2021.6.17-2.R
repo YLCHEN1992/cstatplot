@@ -260,13 +260,11 @@ library(org.Hs.eg.db)
 library(clusterProfiler)
 library(enrichplot)
 z=read.csv(deparse(substitute(x)))
-na.omit(z); z=z[!is.infinite(rowSums(z)),]
+z=na.omit(z); z=z[!is.infinite(rowSums(z)),]
 geneList=z$LOG2;names(geneList)=z$ENTREZID
 KEGG_gseresult <- gseKEGG(geneList, pvalueCutoff=pcf)
 gsav(dotplot(KEGG_gseresult,showCategory=sn),"cdotplot.png")
 for(i in 1:dim(KEGG_gseresult)[1]){
 gsea=gseaplot2(KEGG_gseresult,i,color="red",base_size = 14, pvalue_table = T)
-gsav(gsea,paste(KEGG_gseresult$Description[i],i,".png",sep="_"),height=6)}
-gsea=gseaplot2(KEGG_gseresult,1:dim(KEGG_gseresult)[1],color="red",base_size = 14, pvalue_table = T)
-gsav(gsea,"All_GSEA,png",width=12,height=9)}
+gsav(gsea,paste(KEGG_gseresult$Description[i],i,".png",sep="_"),height=6)}}
 
