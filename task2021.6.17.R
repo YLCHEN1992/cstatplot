@@ -42,6 +42,13 @@ setwd("./CDraft");ggsave(paste(gsub(":","_",Sys.time()),name,sep="_"),x,width=wi
 cat("File had been saved sucessfully under ",paste(address,"/CDraft",sep=""),"\n")
 setwd(address)}
 
+gsav2up=function(){
+if(file.exists("./CDraft")==TRUE){cat("CDraft Existed!\n")}else{
+dir.create("./CDraft",recursive=TRUE);cat("CDraft Created\n")};setwd("./CDraft")}
+gsav2down=function(){add=getwd();
+cat(paste("File had been saved sucessfully under ",add,"\n",sep=""))}
+
+
 fsav=function(x,name){
 address=getwd() 
 if(file.exists("./CWGCNA")==TRUE){cat("CWGCNA Existed!\n")}else{
@@ -140,23 +147,22 @@ for(i in 1:length(l)){la=list(unique(x[,i][x[,i]!=""]))
 l[i]=la};co=vcb[1:length(l)]
 if(t){tt=l;tt$col=co;return(tt)}else{
 sname=paste(gsub(":","_",Sys.time()),"cven.PNG",sep="_")
-address=getwd() 
-if(file.exists("./CDraft")==TRUE){cat("CDraft Existed!\n")}else{
-dir.create("./CDraft",recursive=TRUE);cat("CDraft Created\n")}
-setwd("./CDraft")
+address=getwd();gsav2up();
 venn.diagram(l,sname,resolution = 900,alpha=0.5,
 fill=co,main=main,main.pos= c(0.5,1.05),cat.cex = 0.7,cat.fontface=4,
 main.fontface=4,sub=sub,sub.fontface="bold")
-cat("File had been saved sucessfully under ",paste(address,"/CDraft",sep=""),"\n")
-setwd(address)}}
+gsav2down();setwd(address)}}
 
 cpca3d=function(x,cex=0.75){
 cann(ncpca3d);z=read.csv(deparse(substitute(x)))
 PCA=pca(z)$df
+address=getwd();gsav2up();
+png(paste(gsub(":","_",Sys.time()),"cpca3d.png",
+sep="_"),units="in",width=8,height=8,res=600)
 with(PCA, scatterplot3d(PC1, PC2, PC3,xlab=pca(z)$pc1,ylab=pca(z)$pc2,zlab=pca(z)$pc3,
 pch=16,color=col,cex.symbols = 1.2, font.lab = 2, font.axis = 2))
 legend("topleft",legend=levels(factor(PCA$type)),pch=16,col=levels(factor(PCA$col)),ncol=2,cex=cex)
-gsav(last_plot(),"cpca3d.png")}
+dev.off();gsav2down();setwd(address)}
 
 cpca2d=function(x,tt=""){
 cann(ncpca2d);z=read.csv(deparse(substitute(x)))
@@ -182,10 +188,13 @@ minModuleSize=30,reassignThreshold=0, mergeCutHeight=0.25,
 numericLabels=TRUE, pamRespectsDendro=FALSE,saveTOMs=TRUE,
 saveTOMFileBase="femaleMouseTOM",verbose=3)
 mergedColors=labels2colors(znet$colors)
+address=getwd();gsav2up();
+png(paste(gsub(":","_",Sys.time()),"cWGCNA1.png",
+sep="_"),units="in",width=8,height=8,res=600)
 plotDendroAndColors(znet$dendrograms[[1]],
 cbind(mergedColors[znet$blockGenes[[1]]]),
 c("Modules"),dendroLabels=FALSE, hang=0.03,addGuide=TRUE, guideHang=0.05)
-gsav(last_plot(),"cWGCNA1.png")
+dev.off();gsav2down();setwd(address)
 moduleLabels=znet$colors; moduleColors=labels2colors(znet$colors)
 MEs0=moduleEigengenes(data, moduleColors)$eigengenes
 MEs=orderMEs(MEs0)
@@ -197,23 +206,32 @@ nsamples=nrow(y); moduleTraitCor=cor(MEs,y,use="p")
 moduleTraitPvalue=corPvalueStudent(moduleTraitCor,nsamples)
 textMatrix=paste(signif(moduleTraitCor, 2),"\n[",signif(moduleTraitPvalue, 1),"]",sep ="")
 dim(textMatrix)=dim(moduleTraitCor)
+address=getwd();gsav2up();
+png(paste(gsub(":","_",Sys.time()),"cWGCNA2.png",
+sep="_"),units="in",width=8,height=8,res=600)
 labeledHeatmap(Matrix = moduleTraitCor, xLabelsAngle = 0, 
 xLabels=names(y),yLabels=names(MEs),ySymbols=names(MEs),
 colorLabels=FALSE,colors=blueWhiteRed(50),textMatrix=textMatrix,
 setStdMargins=FALSE,cex.text = 0.5,zlim = c(-1,1),main="")
-gsav(last_plot(),"cWGCNA2.png")
+dev.off();gsav2down();setwd(address)
 if(index3!=""){MET=MEs;MET$index=y[,index3]
 MET=orderMEs(MET);par(mar=c(4,2,1,2),cex=0.9)
+address=getwd();gsav2up();
+png(paste(gsub(":","_",Sys.time()),"cWGCNA3.png",
+sep="_"),units="in",width=8,height=8,res=600)
 plotEigengeneNetworks(MET, "",
 marDendro=c(0,4,1,2),marHeatmap=c(3,4,1,2),
 cex.lab=0.8,xLabelsAngle = 90)
-gsav(last_plot(),"cWGCNA3.png")}}
+dev.off();gsav2down();setwd(address)}}
 geneTree=znet$dendrograms[[1]]
 moduleColors=labels2colors(znet$colors)
 dissTOM=1-TOMsimilarityFromExpr(data,power=pw)
 plotTOM=dissTOM^pw4; diag(plotTOM)=NA
+address=getwd();gsav2up();
+png(paste(gsub(":","_",Sys.time()),"cWGCNA4.png",
+sep="_"),units="in",width=8,height=8,res=600)
 TOMplot(plotTOM,geneTree,moduleColors,main=main4)
-gsav(last_plot(),"cWGCNA4.png");scol=labels2colors(znet$colors)
+dev.off();gsav2down();setwd(address);scol=labels2colors(znet$colors)
 names(scol)=names(znet$colors);scot=levels(factor(scol))
 for(i in 1:length(scot)){tsco=names(scol[scol==scot[i]])
 fsav(tsco,toupper(scot[i]))}
