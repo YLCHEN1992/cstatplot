@@ -264,7 +264,7 @@ z=na.omit(z); z=z[!is.infinite(rowSums(z)),]
 geneList=z$LOG2;names(geneList)=z$ENTREZID
 KEGG_gseresult <- gseKEGG(geneList, pvalueCutoff=pcf)
 gsav(dotplot(KEGG_gseresult,showCategory=sn),"cdotplot.png")
-for(i in 1:dim(KEGG_gseresult)[1]){
+for(i in 1:min(dim(KEGG_gseresult)[1],sn)){
 gsea=gseaplot2(KEGG_gseresult,i,color="red",base_size = 14, pvalue_table = T)
 gsav(gsea,paste(KEGG_gseresult$Description[i],i,".png",sep="_"),height=6)}}
 
