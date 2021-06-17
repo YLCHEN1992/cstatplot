@@ -12,11 +12,24 @@ ncwgcna="\ncwgcna: need 1 or 2 files \n    1$geneID->freenames; 1$....->freesamp
 npacks="\nggplot2; pheatmap; VennDiagram; scatterplot3d; WGCNA;\n"
 {cat(up);cat(get(deparse(substitute(x))));cat(down)}}
 
-chelp=function(){
+cbis=function(){install.packages("BiocManager");
+BiocManager::install(c("AnnotationDbi", "impute","GO.db", "preprocessCore","org.Hs.eg.db","clusterProfiler"))
+install.packages(c("matrixStats", "Hmisc","foreach", "doParallel", "fastcluster", "dynamicTreeCut", "survival"))
+install.packages(c("WGCNA", "stringr", "reshape2"))
+install.packages(c("PerformanceAnalytics","ggplot2","pheatmap","VennDiagram","scatterplot3d","WGCNA"))}
+
+cbi=function(){install.packages(c("BiocManager","PerformanceAnalytics","ggplot2","pheatmap",
+"VennDiagram","scatterplot3d","WGCNA"))}
+
+cbl=function(){library(ggplot2);library(pheatmap);library(VennDiagram);
+library(scatterplot3d);library(WGCNA);library(PerformanceAnalytics)}
+
 cpacks=c("BiocManager","stringr","reshape2","WGCNA","matrixStats", "Hmisc","foreach", 
 "doParallel", "fastcluster", "dynamicTreeCut", "survival","AnnotationDbi", 
 "impute","GO.db","preprocessCore","ggplot2", "pheatmap",
-"VennDiagram","scatterplot3d")
+"VennDiagram","scatterplot3d","PerformanceAnalytics","org.Hs.eg.db")
+
+chelp=function(){
 cat("chelp()")
 cat("\nYou can use <install.packages()> to install packages\n")
 cat("\nYou can use <library()> to library packages\n")
