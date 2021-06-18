@@ -66,9 +66,9 @@ cat(paste("File had been saved sucessfully under ",add,"\n",sep=""))}
 
 fsav=function(x,name){
 address=getwd() 
-if(file.exists("./CWGCNA")==TRUE){cat("CWGCNA Existed!\n")}else{
-dir.create("./CWGCNA",recursive=TRUE);cat("CWGCNA Created\n")}
-setwd("./CWGCNA")
+if(file.exists("./CWFCSV")==TRUE){cat("CWFCSV Existed!\n")}else{
+dir.create("./CWFCSV",recursive=TRUE);cat("CWFCSV Created\n")}
+setwd("./CWFCSV")
 write.csv(x,paste(name,gsub(":","_",Sys.time()),".csv"),row.names=FALSE)
 cat(paste(name,"\nFile had been saved sucessfully under\n",getwd(),"\n",sep=""))
 setwd(address)}
@@ -272,10 +272,9 @@ cid=function(f,cfo="",cto="ENTREZID"){
 library("org.Hs.eg.db")
 det=c("ACCNUM","ALIAS","ENSEMBL","ENSEMBLPROT","ENSEMBLTRANS","ENTREZID","ENZYME","EVIDENCE","EVIDENCEALL" , "GENENAME" ,"GO","GOALL","IPI",  "MAP",  "OMIM", "ONTOLOGY","ONTOLOGYALL", "PATH", "PFAM", "PMID","PROSITE","REFSEQ","SYMBOL","UCSCKG","UNIGENE","UNIPROT" )
 if(!as.logical(sum(c(cfo,cto)%in%det))){cat(paste("Your cfo or cto must is one of the follow",det,"\n",sep=""));return()}
-x=read.csv(deparse(substitute(f)));x$systemD=1
+x=read.csv(deparse(substitute(f)));x$systemD=1;x[,1]=as.character(x[,1])
 y=select(org.Hs.eg.db, keys=x[,1], columns=cto,keytype=cfo)
 locay=which(colnames(y)==cto);z=data.frame(NID=y[,locay])
 for(i in 1:1:length(nrow(x))){z[which(z[,locay]%in%x[i,1]),2:ncol(x)]=x[i,-1]}
 z=unique(z);colnames(z)=c(cto,colnames(x)[-1]);
-z=z[,-which(colnamse(x)=="systemD")];fsav(z,"cid_table.csv")}
-
+z=z[,-which(colnames(x)=="systemD")];fsav(z,"cid_table.csv")}
