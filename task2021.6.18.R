@@ -275,6 +275,6 @@ if(!as.logical(sum(c(cfo,cto)%in%det))){cat(paste("Your cfo or cto must is one o
 x=read.csv(deparse(substitute(f)));x$systemD=1;x[,1]=as.character(x[,1])
 y=select(org.Hs.eg.db, keys=x[,1], columns=cto,keytype=cfo)
 locay=which(colnames(y)==cto);z=data.frame(NID=y[,locay])
-for(i in 1:1:length(nrow(x))){z[which(z[,1]%in%x[i,1]),2:ncol(x)]=x[i,-1]}
+for(i in 1:nrow(x)){z[which(y[,1]%in%x[i,1]),2:ncol(x)]=x[i,-1]}
 z=unique(z);colnames(z)=c(cto,colnames(x)[-1]);
 z=z[,-which(colnames(x)=="systemD")];fsav(z,"cid_table.csv")}
