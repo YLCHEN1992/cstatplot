@@ -241,6 +241,12 @@ sep="_"),units="in",width=8,height=8,res=600)
 plotEigengeneNetworks(MET, "",
 marDendro=c(0,4,1,2),marHeatmap=c(3,4,1,2),
 cex.lab=0.8,xLabelsAngle = 90)
+dev.off();gsav2down();setwd(address)}else{
+address=getwd();gsav2up();
+png(paste(gsub(":","_",Sys.time()),"cWGCNA3a.png",
+sep="_"),units="in",width=8,height=8,res=600)
+plotEigengeneNetworks(MEs, "",plotDendrograms=F,
+marDendro=c(4,4,2,4),cex.lab=0.8,xLabelsAngle = 90)
 dev.off();gsav2down();setwd(address)}}
 geneTree=znet$dendrograms[[1]]
 moduleColors=labels2colors(znet$colors)
