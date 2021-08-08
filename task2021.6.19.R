@@ -129,7 +129,7 @@ theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.positi
 legend.title=element_text(face ="bold"),axis.title=element_text(face ="bold"))
 gsav(vlo,"cvlo.png");vlo}
 
-chot=function(x,main="", CR=T,CC=F,SR=T,N=F){
+chot=function(x,w=8,h=8,main="", CR=T,CC=F,SR=T,N=F){
 cann(nchot);x=read.csv(deparse(substitute(x)))
 c=colorRampPalette(c("green3","black","red3"))(100)
 rownames(x)=x[,1];x=x[,-1]
@@ -150,7 +150,7 @@ hot=pheatmap(x,main=main,scale="row",color=c,cluster_rows=CR, cluster_cols=CC,
 border=FALSE,annotation_row=annotation_row,fontface="italic",gaps_col =cc,
 fontsize_row=10,fontsize_col =12,annotation_col=annotation_col,show_rownames=SR,
 annotation_colors= ann_colors,display_numbers=N,number_color="white")
-gsav(hot,"chot.png");hot}
+gsav(hot,"chot.png",w,h);hot}
 
 cven=function(x,t=F,main="",sub=""){
 cann(ncven);x=read.csv(deparse(substitute(x)))
