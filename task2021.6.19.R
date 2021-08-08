@@ -133,7 +133,7 @@ chot=function(x,main="", CR=T,CC=F,SR=T,N=F){
 cann(nchot);x=read.csv(deparse(substitute(x)))
 c=colorRampPalette(c("green3","black","red3"))(100)
 rownames(x)=x[,1];x=x[,-1]
-getc=colnames(x[,-1]); st=gsub("\\d","",getc)
+getc=colnames(x); st=gsub("\\d","",getc)
 annotation_col = data.frame(SampleType =st)
 rownames(annotation_col)=getc;lst=levels(factor(st))
 if(sum(colnames(x)%in%"Class")>=1){
