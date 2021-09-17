@@ -287,3 +287,6 @@ locay=which(colnames(y)==cto);z=data.frame(NID=y[,locay])
 for(i in 1:nrow(x)){z[which(y[,1]%in%x[i,1]),2:ncol(x)]=x[i,-1]}
 z=unique(z);colnames(z)=c(cto,colnames(x)[-1]);
 z=z[,-which(colnames(x)=="systemD")];fsav(z,"cid_table.csv")}
+
+LOG2=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,log(mean(unlist(c(x[i,mx])),na.rm=T)/mean(unlist(c(x[i,my])),na.rm=T),2))};m}
+PJ=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,t.test(x[i,mx],x[i,my])$p.value)};m}
