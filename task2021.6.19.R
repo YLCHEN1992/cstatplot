@@ -291,4 +291,4 @@ z=z[,-which(colnames(x)=="systemD")];fsav(z,"cid_table.csv")}
 LOG2=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,log(mean(unlist(c(x[i,mx])),na.rm=T)/mean(unlist(c(x[i,my])),na.rm=T),2))};m}
 PJ=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,t.test(x[i,mx],x[i,my])$p.value)};m}
 WPJ=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,wilcox.test(as.numeric(x[i,mx]),as.numeric(x[i,my]))$p.value)};m=p.adjust(m,"BH");m}
-
+CTOM=function(c){d=matrix(0,nrow(c),ncol(c));for(i in 1:nrow(c)){for(j in i:ncol(c)){d[i,j]=(sum(c[i,]*c[j,])-3*c[i,j])/(min(sum(c[i,])-1-c[i,j],sum(c[j,])-1-c[i,j])+(1-c[i,j]))}};d}
