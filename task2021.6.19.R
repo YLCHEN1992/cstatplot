@@ -151,7 +151,7 @@ hot=pheatmap(x,main=main,scale="row",color=c,cluster_rows=CR, cluster_cols=CC,
 border=FALSE,annotation_row=annotation_row,fontface="italic",gaps_col =cc,
 fontsize_row=10,fontsize_col =12,annotation_col=annotation_col,show_rownames=SR,
 annotation_colors= ann_colors,display_numbers=N,number_color="white")
-}else{hot=pheatmap(x,main=main,scale="row",color=c,cluster_rows=CR, cluster_cols=CC,
+}else{hot=pheatmap(x,main=main,color=c,cluster_rows=CR, cluster_cols=CC,
 border=FALSE,fontface="italic",fontsize_row=10,fontsize_col =12,show_rownames=SR,show_colnames=SC,
 display_numbers=N,number_color="white")};gsav(hot,"chot.png",w,h);hot}
 
