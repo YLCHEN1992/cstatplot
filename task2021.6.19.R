@@ -295,3 +295,4 @@ LOG2=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,log(mean(unlist(c(x[i,mx
 PJ=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,t.test(x[i,mx],x[i,my])$p.value)};m}
 WPJ=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,wilcox.test(as.numeric(x[i,mx]),as.numeric(x[i,my]))$p.value)};m=p.adjust(m,"BH");m}
 CTOM=function(c){d=matrix(0,nrow(c),ncol(c));for(i in 1:nrow(c)){for(j in i:ncol(c)){d[i,j]=(sum(c[i,]*c[j,])-3*c[i,j])/(min(sum(c[i,])-1-c[i,j],sum(c[j,])-1-c[i,j])+(1-c[i,j]))}};d}
+corpv=function(x){c=t(x[,-1]);d=matrix(0,ncol(c),ncol(c));for(i in 1:ncol(c)){for(j in 1:ncol(c)){d[i,j]=cor.test(c[,i],c[,j])$p.value}};id=x[,1];colnames(d)=id;rownames(d)=id;d}
