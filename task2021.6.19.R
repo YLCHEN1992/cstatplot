@@ -146,7 +146,7 @@ GeneClass=c(gr=cbp[(length(lst)+1):(length(lst)+length(lxc))]))
 names(ann_colors$SampleType)=lst;names(ann_colors$GeneClass)=lxc
 }else{annotation_row=NA;ann_colors = list(SampleType = c(sc=cbp[1:length(lst)]))
 names(ann_colors$SampleType)=lst}
-cc=seq(length(st)/length(lst), length(st)-length(st)/length(lst),length(st)/length(lst))
+cc=match(lst,st)[which(match(lst,st)!=1)]-1
 hot=pheatmap(x,main=main,scale="row",color=c,cluster_rows=CR, cluster_cols=CC,
 border=FALSE,annotation_row=annotation_row,fontface="italic",gaps_col =cc,
 fontsize_row=10,fontsize_col =12,annotation_col=annotation_col,show_rownames=SR,
