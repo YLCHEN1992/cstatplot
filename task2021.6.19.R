@@ -83,8 +83,8 @@ pc2=paste("PC2(",format(sm.importance$PC2[2]*100),"%)",sep="")
 pc3=paste("PC3(",format(sm.importance$PC3[2]*100),"%)",sep="")
 PCA=as.data.frame(mtcars.pca$x)
 st=gsub("\\d","",rownames(my_data))
-stn=length(levels(factor(st)))
-cl=c();for(i in 1:stn){cl=c(cl,rep(cbp[i],length(st)/stn))}
+lst=unique(st)
+cl=c();for(i in 1:length(st)){cl=c(cl,rep(cbp[i],length(which(st%in%lst[i]))))}
 PCA$type =st; PCA$col=cl
 return(list(df=PCA,pc1=pc1,pc2=pc2,pc3=pc3))}
 
@@ -187,7 +187,7 @@ cann(ncpca2d);z=read.csv(deparse(substitute(x)))
 PCA=pca(z)$df
 pca2d=ggplot(PCA)+geom_point(aes(x =PC1,y =PC2, colour=col),
 alpha=0.4, size=3.5)+scale_color_discrete(name="Types",
-breaks=levels(factor(PCA$col)),labels=levels(factor(PCA$type)))+
+breaks=unique(PCA$col),labels=unique(PCA$type))+
 labs(x=pca(z)$pc1,y=pca(z)$pc1,title=tt)+
 theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.position="right",
 legend.title=element_text(face ="bold"),axis.title=element_text(face ="bold"))
