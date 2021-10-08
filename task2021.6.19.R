@@ -191,7 +191,7 @@ breaks=unique(PCA$col),labels=unique(PCA$type))+
 labs(x=pca(z)$pc1,y=pca(z)$pc1,title=tt)+
 theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.position="right",
 legend.title=element_text(face ="bold"),axis.title=element_text(face ="bold"))
-gsav(pca2d,"cpca2d.png");pca2d}
+gsav(pca2d,"cpca2d.png",10);pca2d}
 
 cwgcna=function(m, n="", main2="Module-trait relationships",
  index3="", main4 = "Network heatmap plot",pw4=2){
