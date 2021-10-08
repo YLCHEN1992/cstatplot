@@ -296,3 +296,12 @@ PJ=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,t.test(x[i,mx],x[i,my])$p.
 WPJ=function(x,mx,my){m=c();for( i in 1:nrow(x)){m=c(m,wilcox.test(as.numeric(x[i,mx]),as.numeric(x[i,my]))$p.value)};m=p.adjust(m,"BH");m}
 CTOM=function(c){d=matrix(0,nrow(c),ncol(c));for(i in 1:nrow(c)){for(j in i:ncol(c)){d[i,j]=(sum(c[i,]*c[j,])-3*c[i,j])/(min(sum(c[i,])-1-c[i,j],sum(c[j,])-1-c[i,j])+(1-c[i,j]))}};d}
 corpv=function(x){c=t(x[,-1]);d=matrix(0,ncol(c),ncol(c));for(i in 1:ncol(c)){for(j in 1:ncol(c)){d[i,j]=cor.test(c[,i],c[,j])$p.value}};id=x[,1];colnames(d)=id;rownames(d)=id;d}
+
+cumap=function(x,tt=""){
+z=read.csv(deparse(substitute(x)))
+PCA=as.data.frame(umap(z[,-1])$layout)
+umap2d=ggplot(PCA)+geom_point(aes(x =V1,y =V2),
+alpha=0.4, size=3.5)+labs(x="UMAP1",y="UMAP2",title=tt)+
+theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.position="right",
+legend.title=element_text(face ="bold"),axis.title=element_text(face ="bold"))
+gsav(umap2d,"cumap2d.png",10);umap2d}
