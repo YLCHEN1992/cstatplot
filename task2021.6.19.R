@@ -118,12 +118,12 @@ shsg=c(); shsg[pd>0.05]="no"; shsg[pd<=0.05]="*"; shsg[pd<=0.01]="**"
 barp=barp+geom_text(aes(x=class,y=M+S, label =c("",shsg),vjust=0,hjust=0.5),
 color="blue4", size=8,show.legend = F,)};gsav(barp,"cbarp.png");barp}
 
-cvlo=function(x,tt=""){
+cvlo=function(x,tt="",xl=1,yl=0.05){
 cann(ncvlo);x=read.csv(deparse(substitute(x)))
 vlo=ggplot(x)+geom_point(aes(x =LOG,y = -log10(TT), colour=TSS),
 alpha=0.4, size=3.5)+scale_color_manual(name="RegTypes",values=c("#546de5", "#d2dae2","#ff4757"))+
-geom_vline(xintercept=c(-1,1),lty=4,col="black",lwd=0.8)+
-geom_hline(yintercept =-log10(0.05),lty=4,col="black",lwd=0.8)+
+geom_vline(xintercept=c(-xl,xl),lty=4,col="black",lwd=0.8)+
+geom_hline(yintercept =-log10(yl),lty=4,col="black",lwd=0.8)+
 labs(x="log2(fold change)",y="-log10 (p-value)",title=tt)+
 theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.position="right",
 legend.title=element_text(face ="bold"),axis.title=element_text(face ="bold"))
@@ -188,7 +188,7 @@ PCA=pca(z)$df
 pca2d=ggplot(PCA)+geom_point(aes(x =PC1,y =PC2, colour=col),
 alpha=0.4, size=3.5)+scale_color_discrete(name="Types",
 breaks=unique(PCA$col),labels=unique(PCA$type))+
-labs(x=pca(z)$pc1,y=pca(z)$pc1,title=tt)+
+labs(x=pca(z)$pc1,y=pca(z)$pc2,title=tt)+
 theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.position="right",
 legend.title=element_text(face ="bold"),axis.title=element_text(face ="bold"))
 gsav(pca2d,"cpca2d.png",10);pca2d}
