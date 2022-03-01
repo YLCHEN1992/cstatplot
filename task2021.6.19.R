@@ -305,3 +305,31 @@ alpha=0.4, size=3.5)+labs(x="UMAP1",y="UMAP2",title=tt)+
 theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.position="right",
 legend.title=element_text(face ="bold"),axis.title=element_text(face ="bold"))
 gsav(umap2d,"cumap2d.png",10);umap2d}
+
+cplot=function(x,c=c("Day 1","Day 7","Day 21")){
+x=read.csv(deparse(substitute(x)))
+cat("\nX and Y locations\nTime and Term \n Ratio and P_Value")
+p=ggplot()+
+geom_point(aes(x=x$Time,y=x$Term,size=x$Ratio*100,col=x$P_Value))+
+labs(x="Times",y="KEGG Terms")+
+labs(col = "PValue",size="Ratio(%)")+
+scale_x_discrete(labels=c)+
+scale_colour_gradientn(colours=colorRampPalette(c("red3","yellow","green3"))(100))+
+theme(axis.title.x=element_text(colour = "black",face="bold"),
+axis.title.y=element_text(colour="black", face="bold"),
+axis.text.x=element_text(colour="black", face="bold"),
+axis.text.y=element_text(colour="black", face="bold"))
+gsav(p,"plot.png",6)}
+
+ckeggc=function(x){
+library("KEGGREST")
+x=deparse(substitute(x))
+x=keggGet(x)
+y=unlist(x[[1]]$GENE)
+y=y[1:length(y)%%2==0]
+z=unlist(strsplit(y,";"))
+z=z[1:length(z)%%2!=0]
+z}
+
+
+
