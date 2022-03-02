@@ -148,7 +148,7 @@ names(ann_colors$SampleType)=lst;names(ann_colors$GeneClass)=lxc
 names(ann_colors$SampleType)=lst}
 cc=match(lst,st)[which(match(lst,st)!=1)]-1
 hot=pheatmap(x,main=main,scale="row",color=c,cluster_rows=CR, cluster_cols=CC,
-border=FALSE,annotation_row=annotation_row,fontface="italic",gaps_col =cc,
+border=FALSE,annotation_row=annotation_row,fontface="italic",gaps_col =cc,show_colnames=SC,
 fontsize_row=10,fontsize_col =12,annotation_col=annotation_col,show_rownames=SR,
 annotation_colors= ann_colors,display_numbers=N,number_color="white")
 }else{hot=pheatmap(x,main=main,color=c,cluster_rows=CR, cluster_cols=CC,
