@@ -333,3 +333,15 @@ z}
 
 
 
+cr=function(x,n,d=5){
+R=c();P=c()
+for( i in 1:nrow(x)){
+cors=c()
+cors=cor.test(as.numeric(x[n,]),as.numeric(x[i,]))
+R=c(R,cors$estimate)
+P=c(P,cors$p.value)}
+data=data.frame(Names=rownames(x),R=round(R,d),P=round(P,d))
+data=na.omit(data)
+data=data[order(data$P),]
+data=data[order(data$R,decreasing = T),]
+data}
