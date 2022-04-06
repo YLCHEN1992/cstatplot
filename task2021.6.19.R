@@ -339,7 +339,8 @@ for( i in 1:nrow(x)){
 cors=c()
 cors=cor.test(as.numeric(x[n,]),as.numeric(x[i,]))
 R=c(R,cors$estimate)
-P=c(P,cors$p.value)}
+P=c(P,cors$p.value)
+cat("\n",signif(i*100/nrow(x),5),"%\n",i)}
 data=data.frame(Names=rownames(x),R=round(R,d),P=round(P,d))
 data=na.omit(data)
 data=data[order(data$P),]
