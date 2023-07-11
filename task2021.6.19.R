@@ -346,3 +346,29 @@ data=na.omit(data)
 data=data[order(data$P),]
 data=data[order(data$R,decreasing = T),]
 data}
+
+chot=function(x,w=8,h=8,main="", CR=T,CC=F,SR=T,SC=F,N=F,TYPE=T){
+cann(nchot);x=read.csv(deparse(substitute(x)))
+c=colorRampPalette(c("green3","black","red3"))(100)
+rownames(x)=x[,1];x=x[,-1]
+if(TYPE){
+getc=colnames(x)[-1]; st=gsub("\\d","",getc)
+annotation_col = data.frame(SampleType =st)
+rownames(annotation_col)=getc;lst=levels(factor(st))
+if(sum(colnames(x)%in%"Class")>=1){
+annotation_row=data.frame(GeneClass=x$Class)
+rownames(annotation_row)=rownames(x)
+lxc=levels(factor(x$Class));x=x[,-1]
+ann_colors = list(SampleType = c(sc=cbp[1:length(lst)]),
+GeneClass=c(gr=cbp[(length(lst)+1):(length(lst)+length(lxc))]))
+names(ann_colors$SampleType)=lst;names(ann_colors$GeneClass)=lxc
+}else{annotation_row=NA;ann_colors = list(SampleType = c(sc=cbp[1:length(lst)]))
+names(ann_colors$SampleType)=lst}
+cc=match(lst,st)[which(match(lst,st)!=1)]-1
+hot=pheatmap(x,main=main,scale="row",color=c,cluster_rows=CR, cluster_cols=CC,
+border=FALSE,annotation_row=annotation_row,fontface="italic",show_colnames=SC,
+fontsize_row=10,fontsize_col =12,annotation_col=annotation_col,show_rownames=SR,gaps_col =cc,
+annotation_colors= ann_colors,display_numbers=N,number_color="white")
+}else{hot=pheatmap(x,main=main,color=c,cluster_rows=CR, cluster_cols=CC,
+border=FALSE,fontface="italic",fontsize_row=10,fontsize_col =12,show_rownames=SR,show_colnames=SC,
+display_numbers=N,number_color="white")};gsav(hot,"chot.png",w,h);hot}
