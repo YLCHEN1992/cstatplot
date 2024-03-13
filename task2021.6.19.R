@@ -372,3 +372,31 @@ annotation_colors= ann_colors,display_numbers=N,number_color="white")
 }else{hot=pheatmap(x,main=main,color=c,cluster_rows=CR, cluster_cols=CC,
 border=FALSE,fontface="italic",fontsize_row=10,fontsize_col =12,show_rownames=SR,show_colnames=SC,
 display_numbers=N,number_color="white")};gsav(hot,"chot.png",w,h);hot}
+
+cvlo=function(x,tt="",xl=1,yl=0.05,w=8,h=8,dpi=600){
+   x=read.csv(deparse(substitute(x)))
+    vlo=ggplot(x)+geom_point(aes(x =LOG,y = -log10(TT), fill=TSS),shape=21,
+                             alpha=1, size=3.5)+scale_fill_manual(name="RegTypes",values=c("#546de5", "#d2dae2","#ff4757"))+
+        geom_vline(xintercept=c(-xl,xl),lty=4,col="black",lwd=0.8)+
+        geom_hline(yintercept =-log10(yl),lty=4,col="black",lwd=0.8)+
+        labs(x="log2(fold change)",y="-log10 (p-value)",title=tt)+
+        theme_bw()+theme(plot.title=element_text(hjust = 0.5,face ="bold"),legend.position="right",
+                         legend.text=element_text(face ="bold",size=12),  legend.title=element_text(face ="bold",size=14),axis.title=element_text(face ="bold"))
+    gsav(vlo,"cvlo.png",w,h,dpi);vlo}
+pheatmap(hot,main="OA Degs",scale="row",color=colorRampPalette(c("green3","black","red3"))(100),
+cluster_rows=T, cluster_cols=T,border=FALSE,show_colnames=T,show_rownames=T,
+fontsize_row=15,fontsize_col =15)
+
+library(GGally)
+library(corrplot)
+library(ggplot2)
+library(ggpubr)
+ m=x[,3:25]
+addcol <-colorRampPalette(c("green3","black","red3"))(100)
+tdc <- cor (m, method="pearson")
+testRes = cor.mtest(m, method="pearson",conf.level = 0.95)
+corrplot(tdc, method = "color",     col=  colorRampPalette(c("green3","black","red3"))(100),  tl.col = "black", tl.cex = 0.8, tl.srt = 45,tl.pos = "lt",
+         p.mat = testRes$p, diag = T, type = 'upper',
+         sig.level = c(0.001, 0.01, 0.05), pch.cex = 0.8,
+         insig = 'label_sig', pch.col = 'grey20', order = 'AOE')
+corrplot(tdc, method = "number", type = "lower", col=  addcol, tl.col = "n", tl.cex = 0.8, tl.pos = "n",order = 'AOE', add = T)
